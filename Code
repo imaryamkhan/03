@@ -1,0 +1,74 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// Function to display the to-do list
+void displayToDoList(const vector<string>& toDoList) {
+    cout << "To-Do List:" << endl;
+    for (size_t i = 0; i < toDoList.size(); ++i) {
+        cout << i + 1 << ". " << toDoList[i] << endl;
+    }
+    cout << endl;
+}
+
+int main() {
+    vector<string> toDoList;
+
+    int choice;
+    string newTask;
+
+    do {
+        // Display menu
+        cout << "To-Do List Management:" << endl;
+        cout << "1. Display To-Do List" << endl;
+        cout << "2. Add Task" << endl;
+        cout << "3. Remove Task" << endl;
+        cout << "4. Quit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Display to-do list
+                displayToDoList(toDoList);
+                break;
+            case 2:
+                // Add task
+                cout << "Enter the new task: ";
+                cin.ignore();  // Clear buffer
+                getline(cin, newTask);
+                toDoList.push_back(newTask);
+                cout << "Task added successfully." << endl << endl;
+                break;
+            case 3:
+                // Remove task
+                if (!toDoList.empty()) {
+                    displayToDoList(toDoList);
+                    int taskIndex;
+                    cout << "Enter the task number to remove: ";
+                    cin >> taskIndex;
+
+                    if (taskIndex >= 1 && taskIndex <= static_cast<int>(toDoList.size())) {
+                        toDoList.erase(toDoList.begin() + taskIndex - 1);
+                        cout << "Task removed successfully." << endl << endl;
+                    } else {
+                        cout << "Invalid task number." << endl << endl;
+                    }
+                } else {
+                    cout << "To-Do List is empty." << endl << endl;
+                }
+                break;
+            case 4:
+                // Quit
+                cout << "Quitting the program. Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please enter a valid option." << endl << endl;
+        }
+
+    } while (choice != 4);
+
+    return 0;  // Exit with success code 0
+}
